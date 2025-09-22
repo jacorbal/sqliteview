@@ -1,0 +1,53 @@
+SQLiteView -- lightweight GTK-based (GTK 3) database browser
+============================================================
+
+A compact visual tool to inspect and edit SQLite database files.
+
+The interface is built with GTK 3 and provides a simple,
+spreadsheet-like view of tables and rows for quick browsing and light
+editing.  Designed for users and developers who prefer a graphical view
+over ad-hoc SQL for routine inspection and small edits.
+
+Key current features
+--------------------
+
+  - **GTK3-based UI.**  Main window with a list of tables and a rows
+    view (both `GtkTreeView`).
+  - **Open/close database.**  Detect and open SQLite files, keeping
+    a `sqlite3` handle in the shared application context.
+  - **Table list.**  Populates a GtkListStore with table names
+    (excluding internal `sqlite_*` tables), ordered alphabetically.
+  - **Row browsing.**  Create a `GtkListStore` for a selected table with
+    string columns and load up to specific number of rows into the rows
+    view.
+  - **In-place text edits.**  Apply textual updates to cells by issuing
+    `UPDATE` statements (`rowid` column is read-only).
+  - **Context management.**  Shared context struct holds the database
+    handle, main window, views, current table/column metadata, and
+    helper functions to free column metadata.
+
+Planned for future versions (not yet implemented)
+-------------------------------------------------
+
+  - Create/modify table schema or indexes from the UI.
+  - Import/export tables or rows (CSV/SQL dump).
+  - Advanced search, filtering, or arbitrary ad-hoc query editor with
+    result panes.
+  - Transactional batch edits, undo/redo, or change log viewer.
+
+Limitations and notes
+---------------------
+
+Current version is still in development: **version 0.1.0** (beta):
+  - Row load capped at 100 rows (`SQL_QUERY_MAX_LIMIT`), just for now.
+  - Column values are handled as strings in the list store; no typed
+    editors or complex cell widgets are present.
+  - The code assumes a single open database stored in the context and
+    requires explicit calls to populate views and manage column
+    metadata.
+
+License
+-------
+
+  - ISC License (<https://opensource.org/license/isc-license-txt>)
+  - Copyright (c) 2025, J. A. Corbal <jacorbal@gmail.com>
